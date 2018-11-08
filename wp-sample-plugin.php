@@ -92,6 +92,17 @@ class Sample_Plugin{
 	}
 
 	/**
+	*Rendaring Post Page.
+	*
+	* @version 1.0.0
+	* @since  1.0.0
+	*/
+	public function post_page_render(){
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-sample-plugin-post.php');
+		new Sample_Plugin_Post();
+	}
+
+	/**
 	*Add style.
 	*
 	* @version 1.0.0
