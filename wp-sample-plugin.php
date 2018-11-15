@@ -68,7 +68,7 @@ class Sample_Plugin{
 			array( $this, 'list_page_render'),
 			'dashicons-format-view-status'
 		);
-		add_submenu_page(
+		$post_page = add_submenu_page(
 			__FILE__,
 			'サンプル登録',
 			'サンプル登録',
@@ -78,6 +78,7 @@ class Sample_Plugin{
 			'dashicons-format-view-status'
 		);
 		add_action( 'admin_print_styles-' . $list_page, array( $this, 'add_style' ) );
+		add_action( 'admin_print_styles-' . $post_page, array( $this, 'add_style' ) );
 	}
 
 	/**
