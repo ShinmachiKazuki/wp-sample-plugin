@@ -8,6 +8,7 @@
 */
 
 class Sample_Plugin_Admin_Db{
+
 	private $table_name;
 	/**
 	*Constructor
@@ -55,5 +56,60 @@ class Sample_Plugin_Admin_Db{
 
 			dbDelta( $query );
 		}
+	}
+	/**
+	* Select data.
+	*
+	* @version 1.0.0.
+	* @since   1.0.0.
+	*/
+	public function get_list_options(){
+		global $wpdb;
+		$prepared = ' SELECT * FROM ' .$this->table_name . ' ORDER BY update_date DESC';
+		return $wpdb->get_results( $prepared );
+	}
+
+
+	/**
+	* Insert Post.
+	*
+	* @version 1.0.0.
+	* @since   1.0.0.
+	*	@param    array $post
+	*/
+	public function insert_options( array $post ){
+		global $wpdb;
+
+		$data = array(
+			'image_url'                => $post['sample-image-url'],
+			'image_alt'                => $post['sample-image-alt'],
+			'link_url'                 => $post['sample-image-link'],
+			'open_new_tab'             => isset( $post['sample-image-target'] ) ? 1 : 0,
+			'insert_element_class'     => $post['sample-element-class'],
+			'insert_element_id'        => $post['sample-element-id'],
+			'how_display'              => $post['sample-how-display'],
+			'filter_category'          => isset( $post['sample-filter-category'] ) ? 1 : 0,
+			'category_id'              => $post['sample-display-category'],
+			'register_date'            => date( 'Y-m-d H:i:s'),
+			'update_date'              => date( 'Y-m-d H:i:s'),
+
+		);
+
+		$prepared = array(
+			'%s',
+			'%s',
+			'%s',
+			'%d',
+			'%s',
+			'%s',
+			'%s',
+			'%d',
+			'%d',
+			'%s',
+			'%s'
+		);
+
+		$wpdb->insert( $this->table_name, $data, $prepared );
+		return $wpdb->insert_id;
 	}
 }
