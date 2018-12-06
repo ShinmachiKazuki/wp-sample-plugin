@@ -17,8 +17,10 @@
 
 		public function __construct(){
 			$db = new Sample_Plugin_Admin_Db();
-			$db->insert_options( $_POST );
-			$this->page_render();
+			$args = $db->get_option( $_GET['id']);
+			var_dump( $args );
+			//$db->insert_options( $_POST );
+			$this->page_render( $args );
 	}
 
 	/**
@@ -26,15 +28,16 @@
 	*
 	* @version 1.0.0
 	* @since  1.0.0
+	* @param  $args
 	*/
-	public function page_render(){
+	public function page_render( $args ){
 		$html  = '<div class="wrap">';
 		$html .= '<h1 class="wp-heading-inline">サンプル登録</h1>';
 
 		echo $html;
 
 		$html  = '<form method="post" action="">';
-		$html .= '<input type="hidden" name="sample_id" value="">';
+		$html .= '<input type="hidden" name="sample_id" value="' . $args->id .'">';
 
 		$html .= '<h2>バナー設定</h2>';
 		$html .= '<table class="form-table">';
@@ -43,7 +46,7 @@
 		$html .= '<th>画像の URL (必須)</th>';
 		$html .= '<td>';
 		$html .= '<img id="banner-image-view" src="' . plugins_url('../images/no-image.png', __FILE__ ) . '" width="200" height="" >';
-		$html .= '<input id="banner-image-url" type="text" class="large-text" name="sample-image-url" required>';
+		$html .= '<input id="banner-image-url" type="text" class="large-text" name="sample-image-url" required value="' . $args->image_url .'">';
 		$html .= '<button id="media-upload" class="button">画像を選択</button>';
 		$html .= '</tr>';
 
