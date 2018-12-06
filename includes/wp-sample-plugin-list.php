@@ -28,6 +28,8 @@
 	* @param  Sample_Plugin_Admin_Db $db
 	*/
 	public function page_render( $db ){
+		$post_url = admin_url() . 'admin.php?page=wp-sample-plugin/includes/wp-sample-plugin-post.php';
+
 		$html  = '<div class="wrap">';
 		$html .= '<h1 class="wp-heading-inline">サンプル一覧</h1>';
 		$html .= '<a href="" class="page-title-action">新規追加</a>';
@@ -38,6 +40,7 @@
 		$html .=	'<th>画像Alt属性</th>';
 		$html .=	'<th>表示方法</th>';
 		$html .=	'<th>絞り込み</th>';
+		$html .=	'<th>&nbsp;</th>';
 		$html .=	'</tr>';
 
 		$results = $db->get_list_options();
@@ -49,6 +52,7 @@
 				$html .= '<td>' . $row->image_alt . '</td>';
 				$html .= '<td>' . $row->how_display . '</td>';
 				$html .= '<td>' . $row->filter_category . '</td>';
+				$html .= '<td><a href="'  . $post_url . '&id=' . $row->id . '">編集</a></td>';
 				$html .= '</tr>';
 			}
 		}else{
