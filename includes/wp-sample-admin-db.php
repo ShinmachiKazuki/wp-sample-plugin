@@ -70,7 +70,7 @@ class Sample_Plugin_Admin_Db{
 		$query = ' SELECT * FROM ' .$this->table_name . ' WHERE id = %d';
 		$data			=array( $id );
 		$prepared = $wpdb->prepare( $query, $data );
-		return $wpdb->get_row( $prepared );
+		return (array) $wpdb->get_row( $prepared );
 	}
 
 	/**
